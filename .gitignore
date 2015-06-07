@@ -4,3 +4,4 @@ erl_crash.dump
 *.ez
 *.beam
 *.o
+/c_src/program
