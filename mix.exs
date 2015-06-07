@@ -7,7 +7,6 @@ defmodule Ipc.Mixfile do
      elixir: "~> 1.0",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     compilers: Mix.compilers ++ [:cure, :"cure.deps"],
      deps: deps]
 
   end
