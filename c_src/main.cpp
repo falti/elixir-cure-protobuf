@@ -19,12 +19,12 @@ int main(void)
         foo::User user;
         user.ParseFromArray(buffer, bytes_read);
 
-        user.set_first_name("Larry");
+        user.set_first_name("Larrylallo");
+        int target_size = user.ByteSize();
+        byte buffer2[target_size];
+        user.SerializeToArray(buffer2, target_size);
 
-        byte buffer2[bytes_read];
-        user.SerializeToArray(buffer2, bytes_read);
-
-        send_msg(buffer2, bytes_read);
+        send_msg(buffer2, target_size);
     }
 
     return 0;
