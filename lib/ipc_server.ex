@@ -1,5 +1,3 @@
-alias Porcelain.Result
-
 defmodule Ipc.Server do
   use GenServer
 
@@ -40,13 +38,12 @@ defmodule Ipc.Server do
   end
 
   def handle_cast({:execute, command, args}, state) do
-    %Result{out: output, status: 0} = Porcelain.exec(command, args)
-    {:noreply, [ {:ok, output} | state]}
+
+    {:noreply, [ {:ok, state} | state]}
   end
 
   def handle_cast({:shell, command}, state) do
-    %Result{out: output, status: 0} = Porcelain.shell(command)
-    {:noreply, [ {:ok, output} | state]}
+    {:noreply, [ {:ok, state} | state]}
   end
 
   def handle_call(:get, _from , commands) do

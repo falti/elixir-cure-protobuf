@@ -7,6 +7,7 @@ defmodule Ipc.Mixfile do
      elixir: "~> 1.0",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     compilers: Mix.compilers ++ [:cure, :"cure.deps"],
      deps: deps]
 
   end
@@ -15,7 +16,7 @@ defmodule Ipc.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger, :porcelain, :poolboy]]
+    [applications: [:logger]]
   end
 
   # Dependencies can be Hex packages:
@@ -31,8 +32,7 @@ defmodule Ipc.Mixfile do
     [
       {:exprotobuf, "~> 0.8.5"},
       {:gpb, github: "tomas-abrahamsson/gpb", tag: "3.17.2"},
-      {:porcelain, "~> 2.0"},
-      {:poolboy, github: "devinus/poolboy", tag: "1.5.1"},
+      #{:poolboy, github: "devinus/poolboy", tag: "1.5.1"},
       {:cure, "~> 0.4.0"}
     ]
   end

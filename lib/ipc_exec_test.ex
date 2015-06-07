@@ -5,16 +5,6 @@ defmodule Messages do
   use Protobuf, from: Path.expand("../definitions/foo/user.proto", __DIR__)
 end
 
-defmodule Caller do
-  def call_ruby(message) do
-    length = byte_size(message)
-    result =
-      %Result{err: err, out: out} =
-      Porcelain.exec("./ruby/process.rb", ["#{length}"], in: message)
-    %Messages.User{} =  Messages.User.decode(out)
-  end
-end
-
 
 #{:ok, contents} = File.read("test2.bin")
 
