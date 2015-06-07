@@ -8,7 +8,9 @@ defmodule Ipc.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      compilers: Mix.compilers ++ [:cure, :"cure.deps"],
-     deps: deps]
+    aliases: aliases, # Configure aliases
+     deps: deps
+   ]
 
   end
 
@@ -17,6 +19,11 @@ defmodule Ipc.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [applications: [:logger]]
+  end
+
+  defp aliases do
+    # Execute the usual mix clean and our Makefile clean task
+    [clean: ["clean", "clean.make"]]
   end
 
   # Dependencies can be Hex packages:
@@ -35,5 +42,21 @@ defmodule Ipc.Mixfile do
       #{:poolboy, github: "devinus/poolboy", tag: "1.5.1"},
       {:cure, "~> 0.4.0"}
     ]
+  end
+
+  def clean_cpp(_) do
+    {result, _error_code} = System.cmd("make", ['clean'], stderr_to_stdout: true)
+    Mix.shell.info result
+  end
+end
+
+defmodule Mix.Tasks.Clean.Make do
+  @shortdoc "Cleans helper in c_src"
+
+  def run(_) do
+    {result, _error_code} = System.cmd("make", ['clean'], stderr_to_stdout: true, cd: "./c_src")
+    Mix.shell.info result
+
+    :ok
   end
 end

@@ -1,3 +1,7 @@
+defmodule Messages do
+  use Protobuf, from: Path.expand("../definitions/foo/user.proto", __DIR__)
+end
+
 defmodule IpcTest do
   use ExUnit.Case
 
@@ -5,7 +9,10 @@ defmodule IpcTest do
 
   test "cure" do
     {:ok, server} = Cure.Server.start "./c_src/program"
-    result1 = server |> Cure.send_data "testdata", :sync
+    contents = File.read!("test2.bin")
+    result1 = server |> Cure.send_data contents, :sync
     IO.inspect result1
+
+    IO.inspect Messages.User.decode(result1)
   end
 end
