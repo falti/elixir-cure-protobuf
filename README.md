@@ -21,3 +21,10 @@ Using Mix to compile
 Run the Test
 
     mix test
+
+## Todo
+
+* automate generation of C++ protobuf objects
+* add useful example
+* remove old stuff
+* add some Supervision tree
